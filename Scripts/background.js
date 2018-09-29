@@ -53,7 +53,7 @@ authenticateWithFacebook = () => {
 }
 
 
-var token = "EAAAAUaZA8jlABAM3aZAxzdPI3bAQGG5nAgVcTzWD0DT6BUD3xM0XxFUiuHVblxOrbsjwbUgzPWJZB6VKbZCLzYIjiimzLu8IZAhW5fqZBWycGmDN9TEAd5tFnoeDuv2EwtH4xEKVL9kaDjI4ip6Rwg0t9HX0NOkpQm4cLUJV4fYAZDZD";
+var token = token;
 var user = "330464170854626";
 var url = "data:text/html;charset=utf8,";
 
