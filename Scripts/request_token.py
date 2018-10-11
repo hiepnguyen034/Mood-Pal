@@ -18,7 +18,7 @@ model_LSTM = load_model('my_model.h5')
 
 with open('tokenizer.pickle', 'rb') as handle:
     tok = pickle.load(handle)
-    
+
 app = Flask("mood_model")
 access_token = 'failed'
 user = 'failed'
@@ -32,7 +32,7 @@ def model():
     if request.method == "POST":
         access_token = request.form['token']
         user = request.form['user']
-        
+
 
 
 
@@ -65,7 +65,7 @@ def get_emotion(messages):
 def get_response(user, token):
     messages=get_message(user,token)
     happy_videos =['https://www.youtube.com/embed/E7H1zrTm7z8',
-                   'https://www.youtube.com/embed/zJUwio7Xtec','https://www.youtube.com/watch?v=eK-v6uek2F4',
+                   'https://www.youtube.com/embed/zJUwio7Xtec','https://www.youtube.com/embed/eK-v6uek2F4',
                   'https://www.youtube.com/embed/N25is3PifH8']
     sad=0
     for i in range((len(k))):
