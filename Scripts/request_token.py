@@ -24,7 +24,7 @@ model = './Model/my_model.h5'
 
 model_LSTM=load_model(model)
 
-with open('tokenizer.pickle', 'rb') as handle:
+with open('./Model/tokenizer.pickle', 'rb') as handle:
     tok = pickle.load(handle)
 
 app = Flask("mood_model")
