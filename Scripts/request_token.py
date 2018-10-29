@@ -14,7 +14,14 @@ try:
 except ImportError:
     import urllib2
 import time
-model_LSTM = load_model('my_model.h5')
+
+
+model = 'my_model.h5'
+graph_glob=Graph()
+with graph_glob.as_default():
+    session=Session(graph=graph_glob)
+    with session.as_default():
+        model_LSTM=load_model(model)
 
 with open('tokenizer.pickle', 'rb') as handle:
     tok = pickle.load(handle)
