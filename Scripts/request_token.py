@@ -14,8 +14,11 @@ try:
 except ImportError:
     import urllib2
 import time
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f82736c5b4ea6ea84230117914cfdd07c091dacc
 model = 'my_model.h5'
 graph_glob=Graph()
 with graph_glob.as_default():
@@ -31,6 +34,7 @@ access_token = 'deleted'
 user = 'deleted'
 
 app = Flask("mood_model")
+
 
 
 @app.route('/', methods=("POST", "GET"))
