@@ -2,37 +2,37 @@ from flask import Flask, request, url_for, redirect
 from keras.models import load_model
 from keras.preprocessing.sequence import pad_sequences
 import pickle
-from bs4 import BeautifulSoup
+from keras import backend as K
 import requests
 import pprint
 import re
 import json
 import urllib
 import os
+import ast
 try:
     import urllib.request as urllib2
 except ImportError:
     import urllib2
-import time
+import tensorflow as tf 
+from tensorflow import Graph, Session
+import random
 
 
-model = 'my_model.h5'
-graph_glob=Graph()
-with graph_glob.as_default():
-    session=Session(graph=graph_glob)
-    with session.as_default():
-        model_LSTM=load_model(model)
+
+model = './Model/my_model.h5'
+
+model_LSTM=load_model(model)
 
 with open('tokenizer.pickle', 'rb') as handle:
     tok = pickle.load(handle)
 
 app = Flask("mood_model")
-access_token = 'deleted'
+token = 'deleted'
 user = 'deleted'
 
 
 
-@app.route('/', methods=("POST", "GET"))
 def model():
     global token
     global user
@@ -65,9 +65,9 @@ def check_sentiment(text):
     max_len = 150
     text=tok.texts_to_sequences([text])
     text=pad_sequences(text,maxlen=max_len)
-    K.set_session(session)
-    with graph_glob.as_default():
-            prob=model_LSTM.predict(text)
+    #K.set_session(session)
+    #with graph_glob.as_default():
+    prob=model_LSTM.predict(text)   
     return {'sad':prob[0][0],'not_sad':prob[0][1]}
 
 def get_emotion(messages):
@@ -92,9 +92,10 @@ def get_response(user, token):
         return random.choice(happy_videos)
     elif sad/float(len(messages)) >= 0.98:
         return random.choice(counseling_service)
+url=get_response(user, token)
 
-def return_json(user, token):
-   url=get_response(user, token)
+@app.route('/', methods=("POST", "GET"))
+def return_json():
    result_dict={'url':url
          }
    result_json = json.dumps(result_dict)
@@ -103,4 +104,4 @@ def return_json(user, token):
    return result_json
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
