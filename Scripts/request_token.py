@@ -30,8 +30,6 @@ app = Flask("mood_model")
 access_token = 'deleted'
 user = 'deleted'
 
-app = Flask("mood_model")
-
 
 
 @app.route('/', methods=("POST", "GET"))
@@ -82,15 +80,18 @@ def get_response(user, token):
                    'https://www.youtube.com/embed/zJUwio7Xtec',
                    'https://www.youtube.com/embed/eK-v6uek2F4',
                    'https://www.youtube.com/embed/N25is3PifH8']
+    counseling_service=['https://www.youtube.com/embed/ZGcFUEnjqe8',
+    'https://www.youtube.com/watch?v=U0K3zxHq2Dg&t=25s',
+    'https://www.youtube.com/embed/Ln0SCsZPZIc']
     sad=0
     for i in range((len(messages))):
          sad+=get_emotion(messages)[i]['sad']
     #print(sad)
-    if sad/float(len(messages)) >= 0.65:
+    if 0.64<= sad/float(len(messages)) <0.98:
     #if sad >=0.65:
         return random.choice(happy_videos)
-    else:
-        return "none"
+    elif sad/float(len(messages)) >= 0.98:
+        return random.choice(counseling_service)
 
 def return_json(user, token):
    url=get_response(user, token)
